@@ -1,38 +1,47 @@
-# create-svelte
+### Sveltekit from 0 to Prod with tests and CI
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+1. Create a Hobby account on Vercel using Github login (https://vercel.com/signup)
+2. Go to SvelteKit docs and go through Getting Started (https://kit.svelte.dev/docs/creating-a-project)
+   1. npm create svelte@latest my-svelte-app
+   2. cd my-svelte-app
+   3. code .
+   4. npm install
+   5. npm run dev
+3. Install recommended extension in VSCode (Svelte, Vitest, Playwright)
+4. Create Github Repo
+5. Add code to git repo
+   1.  git init
+   2.  Commit code as "Initial Setup"
+   3.  Follow commands from github
+6. Setup git action for playwright
+   1. npm init playwright@latest
+   2. set folder to "tests" to match Sveltekit
+   3. Create PR and see tests run
+7. Setup Vitest Github Action
+   1. Copy Playwright and make similar workflow
 ```
+name: Vitest Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: npm ci
+    - name: Execute Unit tests
+      run: "npm run test:unit"
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+8. Get some data from API https://www.energidataservice.dk/tso-electricity/Elspotprices
+9. Install npm install @picocss/pico
+10. Copy paste code from other project
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
